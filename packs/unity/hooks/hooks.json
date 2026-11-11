@@ -1,0 +1,15 @@
+{
+  "description": "harness-unity: 묶음 규칙과 Unity 프로젝트의 pipeline 패키지 상태 주입",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/inject.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "_": "이 묶음을 켤 때 apply.mjs가 같은 범위로 같이 켜는 외부 플러그인. 마켓플레이스가 이 PC에 없으면 source로 먼저 등록한다",
+  "plugins": [
+    { "id": "unity@unity-agent-plugin", "marketplace": "unity-agent-plugin", "source": "Unity-Technologies/unity-agent-plugin" }
+  ]
+}

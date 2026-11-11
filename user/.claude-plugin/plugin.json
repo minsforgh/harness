@@ -1,0 +1,8 @@
+{
+  "name": "harness-user",
+  "version": "0.1.22",
+  "description": "사용자 전역 하네스: 세션 시작 때 전역 지시(instructions.md)를 넣고 하루 한 번 뒤에서 갱신을 확인해 알리며, 영어로 쓴 답을 한 번 돌려보내고, 프로젝트 세션이 하네스 원본을 고치면 묻고, grilling, skill-make, harness-apply, harness-update 스킬을 준다.",
+  "author": {
+    "name": "Minseong Seo"
+  }
+}

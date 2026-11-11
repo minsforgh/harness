@@ -1,0 +1,8 @@
+{
+  "name": "harness-orca",
+  "version": "0.1.1",
+  "description": "오케스트레이션 묶음: Orca 공식 orchestration 위에 정책만(나누기, 명세 기본 조건, 값 표로 worker 고르기, 머지 전 확인, 리뷰 worker), milestone-start(계약, 마일스톤 기준과 대기열, 사전 점검, 판정), 공식에 없는 스크립트(watcher, 시작 점검, 한도 라우팅, Codex용 규칙 경로)",
+  "author": {
+    "name": "Minseong Seo"
+  }
+}

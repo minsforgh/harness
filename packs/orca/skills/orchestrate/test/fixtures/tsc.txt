@@ -1,0 +1,2 @@
+src/foo.ts(12,4): error TS2322: Type 'string' is not assignable to type 'number'.
+src/bar.ts:7:2 - error TS2304: Cannot find name 'missing'.

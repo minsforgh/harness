@@ -1,0 +1,8 @@
+{
+  "name": "harness-trial",
+  "version": "0.1.1",
+  "description": "시험 중 스킬(묶음과 프로필에 넣지 않음). 시험할 프로젝트에만 local 범위로 켠다: game-art(이미지 생성으로 정식 아트를 만들고 들이기), game-mockup(HTML 시안을 보여 주고 고치는 반복).",
+  "author": {
+    "name": "Minseong Seo"
+  }
+}

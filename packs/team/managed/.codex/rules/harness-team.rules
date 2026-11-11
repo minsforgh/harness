@@ -1,0 +1,5 @@
+# harness-team: Unity 확인 명령은 승인 없이 샌드박스 밖에서 실행한다(Codex 샌드박스 안에서는 unity가 에디터에 못 붙는다).
+# harness-apply가 만들고 다시 적용할 때마다 덮어쓴다(원본: dev-wiki _harness/packs/team/managed/.codex/rules/). 고치면 .claude/settings.json도 같이 본다.
+# 규칙은 단독 명령에만 적용된다. cd나 파이프와 묶으면 적용되지 않는다.
+prefix_rule(pattern = ["unity", ["status", "recompile", "test"]], decision = "allow")
+prefix_rule(pattern = ["unity", "command", "console"], decision = "allow")

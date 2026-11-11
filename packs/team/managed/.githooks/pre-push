@@ -1,0 +1,18 @@
+#!/bin/sh
+# harness-team pre-push. harness-apply가 만들고 다시 적용할 때마다 덮어쓴다(원본: dev-wiki _harness/packs/team/managed/.githooks/).
+# main/master로 직접 push하는 것을 막는다. 브랜치를 push하고 GitHub PR로 머지한다.
+# 서버가 막는 것이 아니라 실수 방지용이다(무료 org의 비공개 저장소는 브랜치 보호를 못 쓴다).
+# 예외는 원격에 main이 아직 없을 때의 첫 push 하나다(새 저장소의 첫 커밋). 그 뒤로는 막는다.
+# Git LFS를 쓰게 되면 core.hooksPath가 LFS 훅을 대신하므로 여기서 git lfs pre-push도 불러야 한다.
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main|refs/heads/master)
+      # 원격 sha가 0뿐이면 원격에 그 브랜치가 없다(처음 만드는 push). 로컬 sha가 0뿐이면 지우는 push라 막는다.
+      case "$remote_sha" in *[!0]*) ;; *) case "$local_sha" in *[!0]*) continue ;; esac ;; esac
+      echo "[harness-team] main에 직접 push할 수 없다. 브랜치를 push하고 PR을 올린다." >&2
+      exit 1
+      ;;
+  esac
+done
+exit 0

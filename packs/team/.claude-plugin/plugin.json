@@ -1,0 +1,8 @@
+{
+  "name": "harness-team",
+  "version": "0.1.7",
+  "description": "팀 저장소 묶음(core, unity 위, 내 PC에만 local 범위): 저장소 층(AGENTS.md harness-team 블록을 core와 unity 규칙에서 만듦, main push 막기, 플러그인 없이 도는 문서 검사 사본, PR 템플릿, SETUP, Unity 확인 명령 승인 생략)과 PR 관리자 pr-review 스킬",
+  "author": {
+    "name": "Minseong Seo"
+  }
+}

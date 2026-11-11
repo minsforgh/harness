@@ -1,0 +1,16 @@
+{
+    "name": "AgentCommands",
+    "rootNamespace": "",
+    "references": ["Unity.Pipeline.Attributes"],
+    "includePlatforms": ["Editor"],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": ["HAS_UNITY_PIPELINE"],
+    "versionDefines": [
+        { "name": "com.unity.pipeline", "expression": "0.0.1", "define": "HAS_UNITY_PIPELINE" }
+    ],
+    "noEngineReferences": false
+}

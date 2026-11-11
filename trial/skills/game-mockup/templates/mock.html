@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>화면 시안</title>
+<!--
+  game-mockup 시안 틀. 이 시안이 답할 질문: (한 줄)
+  고친 기록:
+  - YYYY-MM-DD 처음 안 A, B
+-->
+<style>
+  /* 1920x1080 게임 화면(비율 띠 안쪽)을 창 너비에 맞춰 줄여 보여 준다.
+     변수 이름은 프로젝트 UI 값과 같게 두고, 글자 크기 변수는 TMP Style Sheet 이름(--font-small -> small)으로 옮긴다.
+     Unity uGUI로 옮길 수 있는 것만 쓴다.
+     - 배치: position absolute(앵커와 위치로 옮김), 한 줄이나 한 칸 flex(Horizontal, Vertical Layout Group으로 옮김)는 된다.
+       앵커나 Layout Group으로 옮길 수 없는 grid 배치는 쓰지 않는다.
+     - 그림자, 그라데이션, 빛 번짐은 스프라이트(9-slice 포함)로 만들 수 있을 때만 쓴다. 쓰면 어떤 스프라이트가 될지 주석으로 적는다.
+     - 글꼴은 프로젝트가 고른 TMP 글꼴과 같은 글꼴만 쓴다. 정하지 않았으면 sans-serif로 둔다.
+     - 정식 아트가 없는 자리는 도형이나 SVG로 두고 class="temp"를 붙인다(점선으로 "임시"가 보인다). */
+  :root {
+    --color-bg: rgb(20, 18, 16);
+    --color-surface: rgb(46, 42, 38);
+    --color-text: rgb(235, 228, 216);
+    --color-text-dim: rgb(160, 152, 140);
+    --color-accent: rgb(255, 150, 60);
+    --color-danger: rgb(220, 60, 50);
+    --font-small: 18px;
+    --font-body: 24px;
+    --font-title: 48px;
+    --space: 8px;
+    --safe: 32px;
+  }
+  body { margin: 0; padding: 16px; background: #111; color: #ddd; font-family: sans-serif; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .controls button { background: #2a2a2a; color: #ddd; border: 1px solid #555; padding: 6px 12px; cursor: pointer; }
+  .controls button.on { background: #3d5a80; border-color: #5b7fb0; }
+  .mocks { display: flex; flex-direction: column; gap: 24px; }
+  .label { font-size: 14px; margin-bottom: 6px; }
+  /* 게임 화면 틀: 1920x1080을 그대로 그리고 transform으로 줄인다. */
+  .viewport { width: 100%; max-width: 1280px; aspect-ratio: 16 / 9; overflow: hidden; position: relative; }
+  .screen {
+    width: 1920px; height: 1080px; position: absolute; left: 0; top: 0;
+    transform-origin: 0 0; transform: scale(var(--scale, 0.5));
+    background: #3a3f44 center / cover no-repeat;   /* 실제 게임 캡처가 있으면 background-image로 깐다 */
+    color: var(--color-text); font-size: var(--font-body);
+  }
+  .temp { outline: 2px dashed rgba(255, 255, 255, 0.5); }
+  .temp::after { content: "임시"; position: absolute; left: 4px; top: 2px; font-size: 14px; color: rgba(255, 255, 255, 0.7); }
+  /* 자리 설명: 토글로 켠다 */
+  .note { display: none; position: absolute; border: 2px solid #ffd54a; background: rgba(255, 213, 74, 0.12);
+          color: #ffd54a; font-size: 20px; padding: 4px 8px; pointer-events: none; }
+  body.notes .note { display: block; }
+  /* 상태: body의 data-state로 바꾼다. 상태마다 보일 것은 [data-show~="상태"]로 */
+  [data-show] { display: none; }
+  body[data-state="idle"] [data-show~="idle"], body[data-state="aim"] [data-show~="aim"] { display: block; }
+  /* 여기부터 시안의 부품. 클래스 이름은 엔진에서 쓸 오브젝트 이름과 같게 둔다. */
+</style>
+</head>
+<body data-state="idle">
+<div class="controls">
+  <button data-state-btn="idle" class="on">상태 1 (예: 조준 전)</button>
+  <button data-state-btn="aim">상태 2 (예: 조준 중)</button>
+  <button id="btnEvent">사건 (예: 맞기)</button>
+  <button id="btnNotes">자리 설명</button>
+</div>
+<div class="mocks">
+  <section>
+    <div class="label">안 A: (무엇을 시도했나 한 줄)</div>
+    <div class="viewport"><div class="screen">
+      <!-- 부품 -->
+      <div class="note" style="left: 32px; top: 32px; width: 400px; height: 80px;">예: 체력(왼쪽 위, 안전 여백 안)</div>
+    </div></div>
+  </section>
+</div>
+<script>
+  // 틀 너비에 맞춰 1920x1080 화면을 줄인다.
+  function fit() {
+    document.querySelectorAll('.viewport').forEach(v => {
+      v.querySelector('.screen').style.setProperty('--scale', v.clientWidth / 1920);
+    });
+  }
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  fit();
+
+  // 상태 버튼
+  document.querySelectorAll('[data-state-btn]').forEach(b => b.addEventListener('click', () => {
+    document.body.dataset.state = b.dataset.stateBtn;
+    document.querySelectorAll('[data-state-btn]').forEach(x => x.classList.toggle('on', x === b));
+  }));
+  // 자리 설명 토글
+  document.getElementById('btnNotes').addEventListener('click', e => {
+    e.target.classList.toggle('on', document.body.classList.toggle('notes'));
+  });
+  // 사건: 시간에 따라 변하는 표시를 여기서 흉내 낸다(예: 체력을 깎고 1초 뒤 복구)
+  document.getElementById('btnEvent').addEventListener('click', () => {
+  });
+  // 자동 변화가 필요하면: setInterval(() => { /* 값 갱신 */ }, 100);
+</script>
+</body>
+</html>

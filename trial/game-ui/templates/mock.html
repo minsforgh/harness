@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI 시안</title>
+<style>
+  /* game-ui 시안 틀. 1920x1080 게임 화면(비율 띠 안쪽)을 창 너비에 맞춰 줄여 보여 준다.
+     변수 이름은 UI 값 문서와 같게 두고, 글자 크기 변수는 TMP Style Sheet 이름(--font-small -> small)으로 옮긴다.
+     uGUI로 옮길 수 있는 것만 쓴다.
+     - 배치: position absolute(앵커와 위치로 옮김), 한 줄이나 한 칸 flex(Horizontal, Vertical Layout Group으로 옮김)는 된다.
+       앵커나 Layout Group으로 옮길 수 없는 grid 배치는 쓰지 않는다.
+     - 그림자, 그라데이션, 빛 번짐은 스프라이트(9-slice 포함)로 만들 수 있을 때만 쓴다. 쓰면 어떤 스프라이트가 될지 주석으로 적는다.
+     - 글꼴은 프로젝트가 고른 TMP 글꼴과 같은 웹 글꼴만 쓴다. 정하지 않았으면 sans-serif로 둔다. */
+  :root {
+    --color-bg: rgb(20, 18, 16);
+    --color-surface: rgb(46, 42, 38);
+    --color-text: rgb(235, 228, 216);
+    --color-text-dim: rgb(160, 152, 140);
+    --color-accent: rgb(255, 150, 60);
+    --color-danger: rgb(220, 60, 50);
+    --font-small: 18px;
+    --font-body: 24px;
+    --font-title: 48px;
+    --space: 8px;
+    --safe: 32px;
+  }
+  body { margin: 0; padding: 16px; background: #111; color: #ddd; font-family: sans-serif; }
+  .mocks { display: flex; flex-direction: column; gap: 24px; }
+  .label { font-size: 14px; margin-bottom: 6px; }
+  /* 게임 화면 틀: 1920x1080을 그대로 그리고 transform으로 줄인다. */
+  .viewport { width: 100%; max-width: 960px; aspect-ratio: 16 / 9; overflow: hidden; position: relative; }
+  .screen {
+    width: 1920px; height: 1080px; position: absolute; left: 0; top: 0;
+    transform-origin: 0 0; transform: scale(var(--scale, 0.5));
+    background: #3a3f44 center / cover no-repeat;
+    color: var(--color-text); font-size: var(--font-body);
+  }
+  /* 여기부터 시안의 부품. 클래스 이름은 prefab에서 쓸 오브젝트 이름과 같게 둔다. */
+</style>
+</head>
+<body>
+<div class="mocks">
+  <section>
+    <div class="label">시안 A: (무엇을 시도했나 한 줄)</div>
+    <div class="viewport"><div class="screen" style="background-image: url('');">
+      <!-- 부품 -->
+    </div></div>
+  </section>
+</div>
+<script>
+  // 틀 너비에 맞춰 1920x1080 화면을 줄인다.
+  function fit() {
+    document.querySelectorAll('.viewport').forEach(v => {
+      v.querySelector('.screen').style.setProperty('--scale', v.clientWidth / 1920);
+    });
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>

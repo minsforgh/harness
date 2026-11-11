@@ -1,0 +1,161 @@
+{
+  "done-message": {
+    "polls": [{
+      "workers": [],
+      "messages": [{"id":"m-done","type":"worker_done","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\"}","from_handle":"term1","created_at":"1970-01-01T00:16:40.000Z","subject":"completed"}]
+    }]
+  },
+  "question": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "messages": [{"id":"m-question","type":"question","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\"}","from_handle":"term1","created_at":"1970-01-01T00:16:40.000Z","subject":"Need input"}],
+      "reads": {"d1":{"tail":["• Working (2s)"]}}
+    }]
+  },
+  "question-acked": {
+    "polls": [
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "messages": [{"id":"m-question","type":"question","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\"}","from_handle":"term1","created_at":"1970-01-01T00:16:40.000Z","subject":"Need input"}],
+        "reads": {"d1":{"tail":["• Working (2s)"]}}
+      },
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "messages": [],
+        "reads": {"d1":{"tail":["• Working (3s)"]}}
+      }
+    ]
+  },
+  "question-peek-failure": {
+    "polls": [
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "messages": [{"id":"m-question","type":"question","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\"}","from_handle":"term1","created_at":"1970-01-01T00:16:40.000Z","subject":"Need input"}],
+        "reads": {"d1":{"tail":["• Working (2s)"]}}
+      },
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "messages": [],"error":"check",
+        "reads": {"d1":{"tail":["• Working (3s)"]}}
+      }
+    ]
+  },
+  "question-body": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "messages": [{"id":"m-question-body","type":"question","subject":"Question","body":"이 옵션 중 어느 것을 선택할까요?\nA는 빠르고 B는 안전하지만 설정이 더 필요합니다","payload":"{\"taskId\":\"t1\",\"dispatchId\":\"d1\",\"question\":\"이 옵션 중 어느 것을 선택할까요?\\nA는 빠르고 B는 안전하지만 설정이 더 필요합니다\",\"options\":[\"A\",\"B\"]}","from_handle":"term1","created_at":"1970-01-01T00:16:40.000Z"}],
+      "reads": {"d1":{"tail":["• Working (2s)"]}}
+    }]
+  },
+  "escalation": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "messages": [{"id":"m-escalation","type":"escalation","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\"}","from_handle":"term1","created_at":"1970-01-01T00:16:40.000Z","subject":"Blocked"}],
+      "reads": {"d1":{"tail":["• Working (2s)"]}}
+    }]
+  },
+  "update": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","resource":{"worktreeId":"repo::C:/worktrees/demo-worker"},"workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "reads": {"d1":{"tail":["1. Update now","2. Skip"]}}
+    }]
+  },
+  "blocked-working": {
+    "polls": [
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "reads": {"d1":{"tail":["1. Update now","2. Skip"]}}
+      },
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "reads": {"d1":{"tail":["• Working (2s)"]}}
+      }
+    ]
+  },
+  "question-settled": {
+    "polls": [
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "messages": [{"id":"m-question","type":"question","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\"}","from_handle":"term1","created_at":"1970-01-01T00:16:40.000Z","subject":"Need input"}],
+        "reads": {"d1":{"tail":["• Working (2s)"]}}
+      },
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","workerState":"succeeded","terminalState":"released","projection":{"outcome":"succeeded","liveness":{"verdict":"exited"}}}],
+        "messages": []
+      }
+    ]
+  },
+  "permission": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "reads": {"d1":{"tail":["Permission required","Allow once"]}}
+    }]
+  },
+  "draft": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "reads": {"d1":{"tail":["Ready"],"draft":"Please continue"}}
+    }]
+  },
+  "pasted": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "reads": {"d1":{"tail":["[Pasted Content]"]}}
+    }]
+  },
+  "idle": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "reads": {"d1":{"tail":["Ready for input"]}}
+    }]
+  },
+  "heartbeat-lost": {
+    "polls": [{
+      "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+      "reads": {"d1":{"tail":["• Working (2s)"]}}
+    }]
+  },
+  "heartbeat-only": {
+    "polls": [
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "reads": {"d1":{"tail":["• Working (2s)"]}}
+      },
+      {
+        "workers": [{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],
+        "messages": [{"id":"h1","type":"heartbeat","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\",\"phase\":\"measuring\"}","from_handle":"term1","created_at":"1970-01-01T00:33:20.000Z"}],
+        "reads": {"d1":{"tail":["• Working (20s)"]}}
+      }
+    ]
+  },
+  "transition": {
+    "polls": [
+      {"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],"reads":{"d1":{"tail":["• Working (2s)"]}}},
+      {"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","workerState":"failed","terminalState":"released","projection":{"outcome":"failed","liveness":{"verdict":"exited"}}}]}
+    ]
+  },
+  "done-combined": {
+    "polls": [
+      {"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],"reads":{"d1":{"tail":["• Working (2s)"]}}},
+      {"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","workerState":"succeeded","terminalState":"released","projection":{"outcome":"succeeded","liveness":{"verdict":"exited"}}}],"messages":[{"id":"m-done","type":"worker_done","payload":"{\"dispatchId\":\"d1\",\"taskId\":\"t1\"}","from_handle":"term1","created_at":"1970-01-01T00:16:40.001Z","subject":"completed"}]}
+    ]
+  },
+  "all-settled": {
+    "polls": [{"workers":[{"dispatchId":"old","taskId":"old-task","workerState":"succeeded","terminalState":"released","projection":{"outcome":"succeeded","liveness":{"verdict":"exited"}}}],"messages":[]}]
+  },
+  "limit-hit": {
+    "polls": [{"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","agent":"codex","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],"reads":{"d1":{"tail":["1. Update now", "You've hit your usage limit. Resets at 2026-10-17T12:34:00Z"]}}}]
+  },
+  "limit-warning": {
+    "polls": [{"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","agent":"codex","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],"reads":{"d1":{"tail":["⚠ 5h limit: 42% left", "• Working (2s)"]}}}]
+  },
+  "opencode-limit": {
+    "polls": [{"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","agent":"opencode","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],"reads":{"d1":{"tail":["Z.ai usage limit reached"]}}}]
+  },
+  "claude-limit": {
+    "polls": [{"workers":[{"dispatchId":"d1","taskId":"t1","agentTerminalHandle":"term1","worktreeName":"demo-worker","agent":"claude","workerState":"ready","terminalState":"active","projection":{"liveness":{"verdict":"live"}}}],"reads":{"d1":{"tail":["limit reached"]}}}]
+  },
+  "failure": {
+    "polls": [{"workers":[],"error":"worker-list"}]
+  }
+}

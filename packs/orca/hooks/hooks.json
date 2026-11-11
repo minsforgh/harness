@@ -1,0 +1,15 @@
+{
+  "description": "harness-orca: 오케스트레이션 값이 비었으면 알림",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/inject.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

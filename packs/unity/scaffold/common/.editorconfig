@@ -1,0 +1,93 @@
+# .editorconfig -- harness-unity가 처음 한 번 만든 파일이다(원본 dev-wiki _harness/packs/unity/scaffold/common/.editorconfig). 그 뒤로는 이 프로젝트 것이다.
+# 기계가 강제할 수 있는 스타일은 여기에 둔다. 에이전트는 IDE 안내를 보지 못하므로 harness-unity 규칙이 같은 이름 규칙을 글로 준다. 여기서 바꾸면 AGENTS.md에도 적는다(AGENTS.md가 묶음 규칙보다 앞선다).
+# 심각도는 suggestion으로 시작하고, 팀이 동의하면 warning으로 올린다.
+# suggestion은 IDE 안내일 뿐 빌드에는 나타나지 않는다. 빌드와 CI에서 강제하려면
+# 아래처럼 진단 ID별 심각도를 올리고 dotnet build 에 -p:EnforceCodeStyleInBuild=true 를 준다.
+#   dotnet_diagnostic.IDE1006.severity = warning   (이름 규칙)
+#   dotnet_diagnostic.IDE0065.severity = warning   (using 위치)
+
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{json,yml,yaml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Unity가 직접 쓰는 YAML은 줄 끝 공백이 의미 있다 (예: "m_Name: "). 에디터가 건드리지 않게 한다.
+[*.{unity,prefab,asset,mat,anim,controller,meta,physicsMaterial2D}]
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+[*.cs]
+# using: System을 맨 위로, 파일 상단
+dotnet_sort_system_directives_first = true
+csharp_using_directive_placement = outside_namespace:suggestion
+
+# 이름 규칙
+# private 필드: _camelCase
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_style.underscore_camel.required_prefix = _
+dotnet_naming_style.underscore_camel.capitalization = camel_case
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = underscore_camel
+dotnet_naming_rule.private_fields_underscore.severity = suggestion
+
+# private static 필드: s_camelCase (Play 사이에 값이 남을 수 있는 필드가 이름에서 보이게 한다)
+dotnet_naming_symbols.private_static_fields.applicable_kinds = field
+dotnet_naming_symbols.private_static_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_static_fields.required_modifiers = static
+dotnet_naming_style.s_camel.required_prefix = s_
+dotnet_naming_style.s_camel.capitalization = camel_case
+dotnet_naming_rule.private_static_fields_s.symbols = private_static_fields
+dotnet_naming_rule.private_static_fields_s.style = s_camel
+dotnet_naming_rule.private_static_fields_s.severity = suggestion
+
+# const: PascalCase (필드와 지역 상수 모두)
+# pascal_case는 단어 첫 글자만 보므로 UPPER_SNAKE_CASE는 잡지 못한다 (Roslyn으로 확인).
+dotnet_naming_symbols.constants.applicable_kinds = field, local
+dotnet_naming_symbols.constants.required_modifiers = const
+dotnet_naming_style.pascal.capitalization = pascal_case
+dotnet_naming_rule.constants_pascal.symbols = constants
+dotnet_naming_rule.constants_pascal.style = pascal
+dotnet_naming_rule.constants_pascal.severity = suggestion
+
+# 인터페이스: I + PascalCase
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_style.i_pascal.required_prefix = I
+dotnet_naming_style.i_pascal.capitalization = pascal_case
+dotnet_naming_rule.interfaces_i.symbols = interfaces
+dotnet_naming_rule.interfaces_i.style = i_pascal
+dotnet_naming_rule.interfaces_i.severity = suggestion
+
+# private이 아닌 필드: PascalCase
+# enum 멤버는 이 규칙이 잡지 못한다 (Roslyn으로 확인).
+dotnet_naming_symbols.non_private_fields.applicable_kinds = field
+dotnet_naming_symbols.non_private_fields.applicable_accessibilities = public, internal, protected, protected_internal, private_protected
+dotnet_naming_rule.non_private_fields_pascal.symbols = non_private_fields
+dotnet_naming_rule.non_private_fields_pascal.style = pascal
+dotnet_naming_rule.non_private_fields_pascal.severity = suggestion
+
+# 지역 변수와 매개변수: camelCase
+dotnet_naming_symbols.locals_and_parameters.applicable_kinds = local, parameter
+dotnet_naming_style.camel.capitalization = camel_case
+dotnet_naming_rule.locals_and_parameters_camel.symbols = locals_and_parameters
+dotnet_naming_rule.locals_and_parameters_camel.style = camel
+dotnet_naming_rule.locals_and_parameters_camel.severity = suggestion
+
+# 타입(enum 타입 포함), 메서드, 프로퍼티, 이벤트: PascalCase
+dotnet_naming_symbols.pascal_symbols.applicable_kinds = class, struct, enum, property, method, event
+dotnet_naming_rule.pascal_names.symbols = pascal_symbols
+dotnet_naming_rule.pascal_names.style = pascal
+dotnet_naming_rule.pascal_names.severity = suggestion
+
+# 접근 제한자 명시는 일부러 켜지 않는다.
+# Unity 생명주기 메서드(Awake, Start, Update)는 제한자를 생략하는 관례가 있어 오탐이 난다.

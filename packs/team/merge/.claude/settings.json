@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unity status *)",
+      "Bash(unity recompile *)",
+      "Bash(unity test *)",
+      "Bash(unity command console *)",
+      "PowerShell(unity status *)",
+      "PowerShell(unity recompile *)",
+      "PowerShell(unity test *)",
+      "PowerShell(unity command console *)"
+    ]
+  }
+}

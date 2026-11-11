@@ -1,0 +1,7 @@
+{
+  "_": "프로필 = 쌓을 묶음 목록(packs)과 문서 수준(docs: standard | light). apply.mjs --profile <이름>. 엔진을 쓰는 프로필은 엔진 이름을 앞에 붙인다(다른 엔진도 쓸 수 있다). 아직 없는 묶음은 만들 때 여기에 더한다. orca는 어느 프로필 위에나 더하는 묶음이라 프로필에 넣지 않는다(--packs core[,unity],orca). team 묶음이 들면 플러그인은 local 범위(내 PC만)이고 저장소 파일은 넣는다",
+  "personal": { "packs": ["core"], "docs": "standard" },
+  "unity-game": { "packs": ["core", "unity"], "docs": "standard" },
+  "unity-poc": { "packs": ["core", "unity", "poc"], "docs": "light" },
+  "unity-team": { "packs": ["core", "unity", "team"], "docs": "standard" }
+}

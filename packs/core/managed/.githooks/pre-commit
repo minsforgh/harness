@@ -1,0 +1,19 @@
+#!/bin/sh
+# harness pre-commit. harness-apply가 만들고 다시 적용할 때마다 덮어쓴다(원본: dev-wiki _harness/packs/core/managed/.githooks/).
+# 검사 자체는 이 프로젝트에 켠 harness 묶음 플러그인 안(팀 저장소는 .githooks/harness-<묶음>/ 사본)에 있다. harness_checks.py가 찾아 돌린다.
+
+# Windows의 python3는 스토어 안내 스텁일 수 있어 실제로 실행되는지 확인한다.
+py=""
+for c in python python3; do
+  if "$c" --version >/dev/null 2>&1; then
+    py="$c"
+    break
+  fi
+done
+
+if [ -z "$py" ]; then
+  echo "[harness] python이 없어 커밋 전 검사를 건너뛴다" >&2
+  exit 0
+fi
+
+exec "$py" "$(dirname "$0")/harness_checks.py"

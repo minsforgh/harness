@@ -1,0 +1,8 @@
+{
+  "name": "harness-poc",
+  "version": "0.1.3",
+  "description": "게임 POC 묶음(core, unity 위에 쌓는다): POC 규칙과 느슨한 확인(테스트, 끝낼 때 확인, 플레이 확인, 시스템 문서), poc 스킬(기획 문서 받고 나누기, 승인, Assets/<PocId>/, 플레이테스트, 마감), 개요와 게임 설계와 플레이테스트 기록 틀",
+  "author": {
+    "name": "Minseong Seo"
+  }
+}

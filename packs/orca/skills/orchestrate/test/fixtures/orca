@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+printf '%s\n' "$*" >> "$ORCA_FAKE_LOG"
+if [[ $1 == orchestration && $2 == worker-start ]]; then
+  if [[ ${ORCA_FAKE_ID_ONLY:-0} == 1 ]]; then
+    printf '{"ok":true,"result":{"dispatchId":"ctx_fake","worktreeId":"repo_fake::%s"}}\n' "${ORCA_FAKE_WORKTREE:-}"
+  else
+    printf '{"ok":true,"result":{"dispatchId":"ctx_fake","worktree":{"path":"%s"}}}\n' "${ORCA_FAKE_WORKTREE:-}"
+  fi
+elif [[ $1 == orchestration && $2 == worker-show ]]; then
+  printf '{"ok":true,"result":{"agentTerminalHandle":"term_fake"}}\n'
+elif [[ $1 == orchestration && $2 == worker-read ]]; then
+  printf '{"ok":true,"result":{"terminal":{"tail":"%s","draft":false}}}\n' "${ORCA_FAKE_TAIL:-}"
+elif [[ $1 == terminal && $2 == send ]]; then
+  printf '{"ok":true}\n'
+else
+  printf 'unexpected fake Orca command: %s\n' "$*" >&2
+  exit 1
+fi

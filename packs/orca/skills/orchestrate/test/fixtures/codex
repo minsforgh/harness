@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+[[ $1 == --version ]] || exit 1
+[[ ${FAKE_CODEX_VERSION_FAIL:-0} == 0 ]] || exit 1
+echo 'codex 9.9.9-fake'
